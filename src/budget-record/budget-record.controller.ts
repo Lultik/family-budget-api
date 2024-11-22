@@ -1,20 +1,12 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  NotFoundException,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from '@nestjs/common';
 import { BudgetRecordService } from './budget-record.service';
 import { CreateBudgetRecordDto } from './dto/create-budget-record.dto';
 import { UpdateBudgetRecordDto } from './dto/update-budget-record.dto';
 
 @Controller('budget-record')
 export class BudgetRecordController {
-  constructor(private readonly budgetRecordService: BudgetRecordService) {}
+  constructor(private readonly budgetRecordService: BudgetRecordService) {
+  }
 
   @Post()
   create(@Body() createBudgetRecordDto: CreateBudgetRecordDto) {
