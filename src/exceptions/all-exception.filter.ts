@@ -1,11 +1,11 @@
 import {
-  ArgumentsHost,
+  type ArgumentsHost,
   Catch,
-  ExceptionFilter,
+  type ExceptionFilter,
   HttpException,
   InternalServerErrorException,
-} from '@nestjs/common';
-import { HttpAdapterHost } from '@nestjs/core';
+} from "@nestjs/common";
+import type { HttpAdapterHost } from "@nestjs/core";
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -20,17 +20,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
     } else {
       httpException = new InternalServerErrorException();
       const { log } = ctx.getRequest();
-      log.error(
-        `Unhandled error: ${JSON.stringify(
-          exception,
-          Object.getOwnPropertyNames(exception),
-        )}`,
-      );
+      log.error(`Unhndled error: ${JSON.stringify(exception, Object.getOwnPropertyNames(exception))}`);
     }
-    httpAdapter.reply(
-      ctx.getResponse(),
-      httpException.getResponse(),
-      httpException.getStatus(),
-    );
+    httpAdapter.reply(ctx.getResponse(), httpException.getResponse(), httpException.getStatus());
   }
 }

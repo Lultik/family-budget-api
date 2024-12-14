@@ -1,18 +1,18 @@
-import { Module } from '@nestjs/common';
-import { LoggerModule } from 'nestjs-pino/LoggerModule';
-import { BudgetRecordModule } from './budget-record/budget-record.module';
-import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import * as crypto from 'node:crypto';
+import * as crypto from "node:crypto";
+import { Module } from "@nestjs/common";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { MongooseModule } from "@nestjs/mongoose";
+import { LoggerModule } from "nestjs-pino/LoggerModule";
+import { BudgetRecordModule } from "./budget-record/budget-record.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: ".env",
     }),
     MongooseModule.forRoot(process.env.MONGO_CONNECT_STRING, {
-      dbName: 'family-budget',
+      dbName: "family-budget",
     }),
     LoggerModule.forRootAsync({
       imports: [ConfigModule.forRoot()],
@@ -21,7 +21,7 @@ import * as crypto from 'node:crypto';
         pinoHttp: {
           genReqId: () => crypto.randomUUID(),
           transport: {
-            target: 'pino-pretty',
+            target: "pino-pretty",
             options: {
               levelFirst: true,
               translateTime: true,

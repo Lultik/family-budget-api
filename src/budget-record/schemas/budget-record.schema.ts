@@ -1,10 +1,10 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
-import * as crypto from 'node:crypto';
+import * as crypto from "node:crypto";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import type { HydratedDocument } from "mongoose";
 
 export type BudgetRecordDocument = HydratedDocument<BudgetRecord>;
 
-@Schema({ collection: 'budget', timestamps: true, id: true })
+@Schema({ collection: "budget", timestamps: true, id: true })
 export class BudgetRecord {
   @Prop({ id: true, default: () => crypto.randomUUID() })
   id: string;
