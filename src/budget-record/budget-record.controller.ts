@@ -1,11 +1,13 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from "@nestjs/common";
-import type { BudgetRecordService } from "./budget-record.service";
+// biome-ignore lint/style/useImportType: should be imported as class
+import { BudgetRecordService } from "./budget-record.service";
 import type { CreateBudgetRecordDto } from "./dto/create-budget-record.dto";
 import type { UpdateBudgetRecordDto } from "./dto/update-budget-record.dto";
 
 @Controller("budget-record")
 export class BudgetRecordController {
-  constructor(private readonly budgetRecordService: BudgetRecordService) {}
+  constructor(public readonly budgetRecordService: BudgetRecordService) {
+  }
 
   @Post()
   create(@Body() createBudgetRecordDto: CreateBudgetRecordDto) {

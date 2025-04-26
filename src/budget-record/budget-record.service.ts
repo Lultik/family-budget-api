@@ -3,14 +3,15 @@ import { InjectModel } from "@nestjs/mongoose";
 import type { Model } from "mongoose";
 import type { CreateBudgetRecordDto } from "./dto/create-budget-record.dto";
 import type { UpdateBudgetRecordDto } from "./dto/update-budget-record.dto";
-import { BudgetRecord } from "./schemas/budget-record.schema";
+import { BudgetRecord, type BudgetRecordDocument } from "./schemas/budget-record.schema";
 
 @Injectable()
 export class BudgetRecordService {
   constructor(
     @InjectModel(BudgetRecord.name)
-    private budgetRecordModel: Model<BudgetRecord>,
-  ) {}
+    private budgetRecordModel: Model<BudgetRecordDocument>,
+  ) {
+  }
 
   async create(createBudgetRecordDto: CreateBudgetRecordDto) {
     const newRecord = await this.budgetRecordModel.create(createBudgetRecordDto);
