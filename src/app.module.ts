@@ -1,15 +1,23 @@
 import * as crypto from "node:crypto";
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
-import { MongooseModule } from "@nestjs/mongoose";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { SequelizeModule } from "@nestjs/sequelize";
 import { LoggerModule } from "nestjs-pino/LoggerModule";
-import { BudgetRecordModule } from "./budget-record/budget-record.module";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { AuthModule } from "./auth/auth.module";
+import { getPostgresConnectionConfig } from "./config/postgres.config";
+import { TenantModule } from "./tenant/tenant.module";
+import { TransactionModule } from "./transaction/transaction.module";
+import { UserModule } from "./user/user.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.MONGO_CONNECT_STRING, {
-      dbName: "family-budget",
+    SequelizeModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: getPostgresConnectionConfig,
     }),
     LoggerModule.forRoot({
       pinoHttp: {
@@ -25,10 +33,12 @@ import { BudgetRecordModule } from "./budget-record/budget-record.module";
         },
       },
     }),
-    BudgetRecordModule,
+    TenantModule,
+    TransactionModule,
+    AuthModule,
+    UserModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
-export class AppModule {
-}
+export class AppModule {}

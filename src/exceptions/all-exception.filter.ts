@@ -5,7 +5,7 @@ import {
   HttpException,
   InternalServerErrorException,
 } from "@nestjs/common";
-import type { HttpAdapterHost } from "@nestjs/core";
+import { HttpAdapterHost } from "@nestjs/core";
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {

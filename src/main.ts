@@ -23,6 +23,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapterHost));
   app.useLogger(app.get(Logger));
   app.useGlobalInterceptors(new LoggerErrorInterceptor());
+
   await app.listen(PORT, () => {
     const logger = app.get(Logger);
     logger.log(`Server started on localhost:${PORT}`);
