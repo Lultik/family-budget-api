@@ -1,0 +1,27 @@
+GET localhost:5000/api/budget-record
+Accept: application/json
+
+###
+POST localhost:5000/api/budget-record
+Content-Type: application/json
+
+{
+  "value": 100111111111,
+  "category": "food"
+}
+
+###
+GET localhost:5000/api/budget-record/673a65970ad9385d5293ccfa
+Accept: application/json
+
+###
+PATCH localhost:5000/api/budget-record/673a65970ad9385d5293ccfa
+Content-Type: application/json
+
+{
+  "value": 200,
+  "category": "car"
+}
+
+###
+DELETE localhost:5000/api/budget-record/673a65970ad9385d5293ccfa
