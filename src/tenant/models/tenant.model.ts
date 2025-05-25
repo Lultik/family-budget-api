@@ -1,5 +1,6 @@
 import { UUIDV4 } from "sequelize";
-import { Column, CreatedAt, DataType, DeletedAt, Model, Table, UpdatedAt } from "sequelize-typescript";
+import { Column, CreatedAt, DataType, DeletedAt, HasMany, Model, Table, UpdatedAt } from "sequelize-typescript";
+import { User } from "../../user/models";
 import { CreateTenantDto } from "../dto/create-tenant.dto";
 import { TenantDto } from "../dto/tenant.dto";
 import { ITenant } from "../interfaces";
@@ -46,4 +47,7 @@ export class Tenant extends Model<TenantDto, CreateTenantDto> implements ITenant
   @Column
   @DeletedAt
   deletedAt?: Date;
+
+  @HasMany(() => User)
+  users: User[];
 }
