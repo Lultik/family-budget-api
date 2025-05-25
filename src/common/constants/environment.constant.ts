@@ -7,3 +7,5 @@ export const PGPASSWORD = "PGPASSWORD";
 export const FRONTEND_URL = "FRONTEND_URL";
 export const DATABASE_URL = "DATABASE_URL";
 export const DATABASE_URL_UNPOOLED = "DATABASE_URL_UNPOOLED";
+
+export const JWT_SECRET = "JWT_SECRET";

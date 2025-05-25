@@ -11,7 +11,10 @@ async function bootstrap() {
   console.log(`Starting server at port ${PORT}...`);
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   const httpAdapterHost = app.get(HttpAdapterHost);
-  app.enableCors();
+  app.enableCors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  });
   const config = new DocumentBuilder().setTitle("AI Challenge API").setVersion("1.0").build();
   const document = SwaggerModule.createDocument(app, config);
   const options: SwaggerCustomOptions = {
