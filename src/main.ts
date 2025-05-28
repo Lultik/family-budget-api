@@ -1,6 +1,7 @@
 import { ValidationPipe } from "@nestjs/common";
 import { HttpAdapterHost, NestFactory } from "@nestjs/core";
 import { DocumentBuilder, type SwaggerCustomOptions, SwaggerModule } from "@nestjs/swagger";
+import * as cookieParser from "cookie-parser";
 import { Logger, LoggerErrorInterceptor } from "nestjs-pino";
 import { AppModule } from "./app.module";
 import { AllExceptionsFilter } from "./exceptions";
@@ -26,6 +27,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapterHost));
   app.useLogger(app.get(Logger));
   app.useGlobalInterceptors(new LoggerErrorInterceptor());
+  app.use(cookieParser());
 
   await app.listen(PORT, () => {
     const logger = app.get(Logger);
