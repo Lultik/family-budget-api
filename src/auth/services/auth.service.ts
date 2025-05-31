@@ -71,10 +71,10 @@ export class AuthService {
       throw new UserDoesNotExistException();
     }
 
-    const { password: savedPassword, id, role, tenantId } = user;
+    const { password: savedPassword, id, role } = user;
 
     await this.validatePassword(inputPassword, savedPassword);
-    return { id, role, tenantId };
+    return { id, role };
   }
 
   private async hashPassword(password: string): Promise<string> {

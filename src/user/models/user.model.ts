@@ -1,16 +1,5 @@
 import { UUIDV4 } from "sequelize";
-import {
-  BelongsTo,
-  Column,
-  CreatedAt,
-  DataType,
-  DeletedAt,
-  ForeignKey,
-  Model,
-  PrimaryKey,
-  Table,
-} from "sequelize-typescript";
-import { Tenant } from "../../tenant/models";
+import { Column, CreatedAt, DataType, DeletedAt, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { UserRoles } from "../constants";
 import { CreateUserDto, UserDto } from "../dto";
 import { IUser } from "../interfaces";
@@ -36,15 +25,6 @@ export class User extends Model<UserDto, CreateUserDto> implements IUser {
     field: "user_id",
   })
   id: string;
-
-  @ForeignKey(() => Tenant)
-  @Column({
-    type: DataType.UUID,
-    allowNull: true,
-    field: "tenant_id",
-    defaultValue: "f15895f2-b73e-4ad7-b640-3c11c0a5fd47",
-  })
-  tenantId: string;
 
   @Column({
     type: DataType.STRING(),
@@ -97,7 +77,4 @@ export class User extends Model<UserDto, CreateUserDto> implements IUser {
   @Column
   @CreatedAt
   createdAt?: Date;
-
-  @BelongsTo(() => Tenant)
-  tenant: Tenant;
 }

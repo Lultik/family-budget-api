@@ -4,7 +4,6 @@ import { GoogleUserDataDto } from "../dto/google-user.dto";
 
 export interface IJwtPayload {
   id: string;
-  tenantId: string;
   role: UserRoles;
 }
 
