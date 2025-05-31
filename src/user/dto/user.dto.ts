@@ -13,14 +13,6 @@ export class UserDto implements IUser {
   id: string;
 
   @ApiProperty({
-    description: "Tenant id",
-    required: true,
-    nullable: false,
-    example: "0ebb7d43-0b66-4c8a-828b-12b45c00fd2a",
-  })
-  tenantId: string;
-
-  @ApiProperty({
     description: "User email",
     required: true,
     example: "john.dow@domain.com",

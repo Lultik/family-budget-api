@@ -1,13 +1,16 @@
 import * as crypto from "node:crypto";
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+import { APP_GUARD } from "@nestjs/core";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { LoggerModule } from "nestjs-pino/LoggerModule";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AuthModule } from "./auth/auth.module";
+import { JwtGuard } from "./auth/guards";
+import { JwtStrategy } from "./auth/strategies";
+import { CategoryModule } from "./category/category.module";
 import { getPostgresConnectionConfig } from "./config/postgres.config";
-import { TenantModule } from "./tenant/tenant.module";
 import { TransactionModule } from "./transaction/transaction.module";
 import { UserModule } from "./user/user.module";
 
@@ -33,12 +36,12 @@ import { UserModule } from "./user/user.module";
         },
       },
     }),
-    TenantModule,
     TransactionModule,
     AuthModule,
     UserModule,
+    CategoryModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: JwtGuard }, JwtStrategy],
 })
 export class AppModule {}

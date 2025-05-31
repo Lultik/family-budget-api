@@ -11,13 +11,9 @@ export class UserController {
 
   @Get("me")
   getMe(@Req() req: IRequestWithJwtPayload) {
-    const { user } = req;
-    const { id } = user;
-
-    console.log("UserController.getMe", user);
-
-    console.log("User ID from request:", id);
-
+    const {
+      user: { id },
+    } = req;
     return this.userService.findUserById(id);
   }
 

@@ -34,9 +34,9 @@ export class GoogleAuthService {
       await this.userService.updateExistingUser(existedUser, user);
     }
 
-    const { id, tenantId, role } = existedUser;
+    const { id, role } = existedUser;
 
-    this.jwtAuthService.signToken(res, { id, tenantId, role });
+    this.jwtAuthService.signToken(res, { id, role });
     const frontendUrl = this.configService.get(FRONTEND_URL) ?? "/";
     res.redirect(frontendUrl);
   }

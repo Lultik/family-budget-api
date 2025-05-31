@@ -1,6 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Patch, Post, Req, Res, UseGuards } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { Response } from "express";
+import { Public } from "../decorators";
 import { ChangePasswordUserDto, UserLoginDto, UserRegistrationDto } from "../dto";
 import { JwtGuard, LocalGuard } from "../guards";
 import { IRequestWithJwtPayload } from "../interfaces";
@@ -14,6 +15,7 @@ export class AuthController {
     private readonly jwtAuthService: JwtAuthService,
   ) {}
 
+  @Public()
   @Post("/registration")
   registration(@Body() userRegistrationDto: UserRegistrationDto) {
     return this.authService.registerUser(userRegistrationDto);
@@ -29,6 +31,7 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @Public()
   @UseGuards(LocalGuard)
   @Post("/login")
   login(
@@ -36,8 +39,9 @@ export class AuthController {
     @Req() req: IRequestWithJwtPayload,
     @Body() userLoginDto: UserLoginDto,
   ) {
-    const { id, tenantId, role } = req.user;
-    return this.jwtAuthService.signToken(res, { id, tenantId, role });
+    const { id, role } = req.user;
+
+    return this.jwtAuthService.signToken(res, { id, role });
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
