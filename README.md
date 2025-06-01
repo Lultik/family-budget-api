@@ -10,37 +10,23 @@
 
 ## 📚 Entities
 
-### Tenant (Family)
-
-- Groups users into a family.
-- Owns shared **categories**, **accounts**, **account types**, and **transactions**.
-
 ### User
 
-- Belongs to one **Tenant**.
 - Creates **transactions**.
 - May have personal **accounts** (optional).
 
-### AccountType
-
-- Defines the type of an **account** (e.g., 'cash', 'bank', 'credit card').
-- Belongs to a **Tenant** (so families can define their own types).
-
 ### Account
 
-- Belongs to a **Tenant**.
 - Belongs to an **AccountType**.
 - Optionally assigned to a **User** (personal account).
 - Stores **currency** (e.g., 'USD', 'PLN').
 
 ### Category
 
-- Belongs to a **Tenant**.
-- Shared across all **Users** in the **Tenant**.
+- Shared across all **Users**
 
 ### Transaction
 
-- Belongs to a **Tenant**.
 - Linked to an **Account** and a **Category**.
 - Created by a **User**.
 
@@ -54,7 +40,6 @@
 
 ## 🛠 Key Points
 
-- **Categories** are shared within a family (Tenant).
 - **Account types** (like `cash`, `bank account`, `credit card`) are defined per family.
 - **Accounts** belong to a type and can be either common or personal.
 - **Transactions** store amounts in the currency of the related **Account**.
