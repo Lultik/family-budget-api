@@ -6,11 +6,13 @@ import {
   DataType,
   DeletedAt,
   ForeignKey,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
   UpdatedAt,
 } from "sequelize-typescript";
+import { Transaction } from "../../transaction/models";
 import { User } from "../../user/models";
 import { AccountDto } from "../dto/account.dto";
 import { CreateAccountDto } from "../dto/create-account.dto";
@@ -87,4 +89,7 @@ export class Account extends Model<AccountDto, CreateAccountDto> implements IAcc
 
   @BelongsTo(() => User, { foreignKey: "userId" })
   user: User;
+
+  @HasMany(() => Transaction)
+  transactions: Transaction[];
 }

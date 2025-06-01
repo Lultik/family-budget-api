@@ -1,6 +1,19 @@
 import { UUIDV4 } from "sequelize";
-import { BelongsTo, Column, CreatedAt, DataType, ForeignKey, Model, Table, UpdatedAt } from "sequelize-typescript";
-import { Tenant } from "../../tenant/models";
+import {
+  BelongsTo,
+  Column,
+  CreatedAt,
+  DataType,
+  DeletedAt,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+  UpdatedAt,
+} from "sequelize-typescript";
+import { Account } from "../../account/models/account.model";
+import { Category } from "../../category/models";
+import { User } from "../../user/models";
 import { CreateTransactionDto } from "../dto/create-transaction.dto";
 import { TransactionDto } from "../dto/transaction.dto";
 import { ITransaction } from "../interfaces";
@@ -17,6 +30,7 @@ import { ITransaction } from "../interfaces";
   },
 })
 export class Transaction extends Model<TransactionDto, CreateTransactionDto> implements ITransaction {
+  @PrimaryKey
   @Column({
     type: DataType.UUID,
     unique: true,
@@ -28,25 +42,16 @@ export class Transaction extends Model<TransactionDto, CreateTransactionDto> imp
   })
   id: string;
 
-  @ForeignKey(() => Tenant)
-  @Column({
-    type: DataType.UUID,
-    field: "tenant_id",
-    defaultValue: UUIDV4,
-    allowNull: false,
-    onDelete: "RESTRICT",
-  })
-  tenantId: string;
-
+  @ForeignKey(() => User)
   @Column({
     type: DataType.UUID,
     field: "user_id",
-    defaultValue: UUIDV4,
-    allowNull: false,
+    allowNull: true,
     onDelete: "RESTRICT",
   })
   userId: string;
 
+  @ForeignKey(() => Account)
   @Column({
     type: DataType.UUID,
     field: "account_id",
@@ -56,6 +61,7 @@ export class Transaction extends Model<TransactionDto, CreateTransactionDto> imp
   })
   accountId: string;
 
+  @ForeignKey(() => Category)
   @Column({
     type: DataType.UUID,
     field: "category_id",
@@ -72,12 +78,6 @@ export class Transaction extends Model<TransactionDto, CreateTransactionDto> imp
   amount: number;
 
   @Column({
-    type: DataType.STRING(3),
-    allowNull: false,
-  })
-  currency: string;
-
-  @Column({
     type: DataType.STRING,
     allowNull: true,
   })
@@ -85,7 +85,7 @@ export class Transaction extends Model<TransactionDto, CreateTransactionDto> imp
 
   @Column({
     type: DataType.DATE,
-    allowNull: false,
+    allowNull: true,
   })
   date: Date;
 
@@ -97,6 +97,16 @@ export class Transaction extends Model<TransactionDto, CreateTransactionDto> imp
   @UpdatedAt
   updatedAt?: Date;
 
-  @BelongsTo(() => Tenant, { foreignKey: "tenantId" })
-  tenant: Tenant;
+  @Column
+  @DeletedAt
+  deletedAt?: Date;
+
+  @BelongsTo(() => User, { foreignKey: "userId" })
+  user?: User;
+
+  @BelongsTo(() => Account, { foreignKey: "accountId" })
+  account?: Account;
+
+  @BelongsTo(() => Category, { foreignKey: "categoryId" })
+  category?: Category;
 }

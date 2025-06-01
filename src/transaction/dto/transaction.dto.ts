@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { ITransaction } from "../interfaces/transaction.interface";
+import { ITransaction } from "../interfaces";
 
 export class TransactionDto implements ITransaction {
   @ApiProperty({
@@ -10,15 +10,8 @@ export class TransactionDto implements ITransaction {
   id: string;
 
   @ApiProperty({
-    description: "Tenant id",
-    required: true,
-    example: "f38b5d21-636e-4ca1-925f-04ec953a0bdc",
-  })
-  tenantId: string;
-
-  @ApiProperty({
     description: "User id",
-    required: true,
+    required: false,
     example: "f38b5d21-636e-4ca1-925f-04ec953a0bdc",
   })
   userId: string;
@@ -45,13 +38,6 @@ export class TransactionDto implements ITransaction {
   amount: number;
 
   @ApiProperty({
-    description: "Transaction currency",
-    required: true,
-    example: "USD",
-  })
-  currency: string;
-
-  @ApiProperty({
     description: "Transaction description",
     required: false,
     example: "Grocery shopping",
@@ -60,7 +46,7 @@ export class TransactionDto implements ITransaction {
 
   @ApiProperty({
     description: "Transaction date",
-    required: true,
+    required: false,
     example: "2023-10-01T12:00:00Z",
   })
   date: Date;

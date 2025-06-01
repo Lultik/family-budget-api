@@ -1,6 +1,7 @@
 import { UUIDV4 } from "sequelize";
 import { Column, CreatedAt, DataType, DeletedAt, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { Account } from "../../account/models/account.model";
+import { Transaction } from "../../transaction/models";
 import { UserRoles } from "../constants";
 import { CreateUserDto, UserDto } from "../dto";
 import { IUser } from "../interfaces";
@@ -81,4 +82,7 @@ export class User extends Model<UserDto, CreateUserDto> implements IUser {
 
   @HasMany(() => Account)
   accounts: Account[];
+
+  @HasMany(() => Transaction)
+  transactions: Transaction[];
 }

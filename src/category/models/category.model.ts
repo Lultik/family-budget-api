@@ -1,5 +1,16 @@
 import { UUIDV4 } from "sequelize";
-import { Column, CreatedAt, DataType, DeletedAt, Model, PrimaryKey, Table, UpdatedAt } from "sequelize-typescript";
+import {
+  Column,
+  CreatedAt,
+  DataType,
+  DeletedAt,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+  UpdatedAt,
+} from "sequelize-typescript";
+import { Transaction } from "../../transaction/models";
 import { CategoryDto } from "../dto/category.dto";
 import { CreateCategoryDto } from "../dto/create-category.dto";
 import { ICategory } from "../interfaces/category.interface";
@@ -47,4 +58,7 @@ export class Category extends Model<CategoryDto, CreateCategoryDto> implements I
   @Column
   @DeletedAt
   deletedAt?: Date;
+
+  @HasMany(() => Transaction)
+  transactions: Transaction[];
 }

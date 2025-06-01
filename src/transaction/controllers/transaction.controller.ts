@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { JwtGuard } from "../../auth/guards";
 import { CreateTransactionDto } from "../dto/create-transaction.dto";
 import { UpdateTransactionDto } from "../dto/update-transaction.dto";
 import { TransactionService } from "../services/transaction.service";
 
-@Controller("transaction")
+@UseGuards(JwtGuard)
+@Controller("transactions")
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
 
@@ -19,16 +21,16 @@ export class TransactionController {
 
   @Get(":id")
   findOne(@Param("id") id: string) {
-    return this.transactionService.findOne(+id);
+    return this.transactionService.findOne(id);
   }
 
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
-    return this.transactionService.update(+id, updateTransactionDto);
+    return this.transactionService.update(id, updateTransactionDto);
   }
 
   @Delete(":id")
   remove(@Param("id") id: string) {
-    return this.transactionService.remove(+id);
+    return this.transactionService.remove(id);
   }
 }
