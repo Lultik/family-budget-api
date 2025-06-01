@@ -13,6 +13,7 @@ import { CategoryModule } from "./category/category.module";
 import { getPostgresConnectionConfig } from "./config/postgres.config";
 import { TransactionModule } from "./transaction/transaction.module";
 import { UserModule } from "./user/user.module";
+import { AccountModule } from './account/account.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { UserModule } from "./user/user.module";
     AuthModule,
     UserModule,
     CategoryModule,
+    AccountModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: JwtGuard }, JwtStrategy],
