@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { CreateAccountDto } from "../dto/create-account.dto";
 import { UpdateAccountDto } from "../dto/update-account.dto";
@@ -19,15 +19,39 @@ export class AccountService {
     return this.account.findAll();
   }
 
-  findOne(id: number) {
+  findById(id: string) {
+    return this.account.findByPk(id);
+  }
+
+  findOne(id: string) {
     return `This action returns a #${id} account`;
   }
 
-  update(id: number, updateAccountDto: UpdateAccountDto) {
-    return `This action updates a #${id} account`;
+  update(id: string, updateAccountDto: UpdateAccountDto) {
+    return this.account.update(updateAccountDto, {
+      where: { id },
+    });
   }
 
   remove(id: number) {
     return `This action removes a #${id} account`;
+  }
+
+  async decreaseBalance(id: string, amount: number) {
+    const account = await this.findById(id);
+    if (!account) {
+      throw new NotFoundException(`Account with ID ${id} not found.`);
+    }
+    account.balance -= amount;
+    return this.update(account.id, { balance: account.balance });
+  }
+
+  async increaseBalance(id: string, amount: number) {
+    const account = await this.findById(id);
+    if (!account) {
+      throw new NotFoundException(`Account with ID ${id} not found.`);
+    }
+    const balance = +amount + +account.balance;
+    return this.update(account.id, { balance });
   }
 }

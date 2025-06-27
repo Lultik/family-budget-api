@@ -20,7 +20,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     } else {
       httpException = new InternalServerErrorException();
       const { log } = ctx.getRequest();
-      log.error(`Unhndled error: ${JSON.stringify(exception, Object.getOwnPropertyNames(exception))}`);
+      log.error(`Unhandled error: ${JSON.stringify(exception, Object.getOwnPropertyNames(exception))}`);
     }
     httpAdapter.reply(ctx.getResponse(), httpException.getResponse(), httpException.getStatus());
   }

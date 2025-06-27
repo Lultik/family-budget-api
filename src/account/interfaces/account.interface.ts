@@ -6,4 +6,5 @@ export interface IAccount {
   type: AccountType;
   name: string;
   currency: string;
+  balance: number;
 }

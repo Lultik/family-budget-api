@@ -75,6 +75,15 @@ export class Account extends Model<AccountDto, CreateAccountDto> implements IAcc
   })
   currency: string;
 
+  @Column({
+    type: DataType.DECIMAL(10, 2),
+    allowNull: false,
+    defaultValue: 0,
+    field: "balance",
+    onDelete: "RESTRICT",
+  })
+  balance: number;
+
   @Column
   @CreatedAt
   createdAt: Date;

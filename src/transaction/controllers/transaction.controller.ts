@@ -11,7 +11,7 @@ export class TransactionController {
 
   @Post()
   create(@Body() createTransactionDto: CreateTransactionDto) {
-    return this.transactionService.create(createTransactionDto);
+    return this.transactionService.createTransaction(createTransactionDto);
   }
 
   @Get()
@@ -31,6 +31,6 @@ export class TransactionController {
 
   @Delete(":id")
   remove(@Param("id") id: string) {
-    return this.transactionService.remove(id);
+    return this.transactionService.removeTransaction(id);
   }
 }

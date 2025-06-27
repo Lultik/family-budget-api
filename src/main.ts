@@ -35,4 +35,7 @@ async function bootstrap() {
   });
 }
 
-bootstrap();
+bootstrap().catch((error) => {
+  console.error("Error during server startup:", error);
+  process.exit(1);
+});

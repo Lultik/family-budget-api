@@ -14,7 +14,12 @@ export class UserController {
     const {
       user: { id },
     } = req;
-    return this.userService.findUserById(id);
+    const user = this.userService.findUserById(id);
+
+    if (!user) {
+      return { message: "User not found" };
+    }
+    return user;
   }
 
   @Get(":id")

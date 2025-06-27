@@ -1,0 +1,10 @@
+{
+  "name": "PostgreSQL Dev Container",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "postgres",
+  "runServices": ["postgres"],
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [5432],
+  "mounts": ["source=${localWorkspaceFolder},target=/workspace,type=bind"],
+  "remoteUser": "postgres"
+}

@@ -38,4 +38,11 @@ export class AccountDto implements IAccount {
     example: "Bank Account",
   })
   name: string;
+
+  @ApiProperty({
+    description: "Account Balance",
+    required: true,
+    example: 0,
+  })
+  balance: number;
 }

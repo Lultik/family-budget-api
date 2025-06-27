@@ -19,12 +19,12 @@ export class AccountController {
 
   @Get(":id")
   findOne(@Param("id") id: string) {
-    return this.accountService.findOne(+id);
+    return this.accountService.findById(id);
   }
 
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateAccountDto: UpdateAccountDto) {
-    return this.accountService.update(+id, updateAccountDto);
+    return this.accountService.update(id, updateAccountDto);
   }
 
   @Delete(":id")

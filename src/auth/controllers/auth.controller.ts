@@ -17,8 +17,9 @@ export class AuthController {
 
   @Public()
   @Post("/registration")
-  registration(@Body() userRegistrationDto: UserRegistrationDto) {
-    return this.authService.registerUser(userRegistrationDto);
+  async registration(@Body() userRegistrationDto: UserRegistrationDto, @Res({ passthrough: true }) res: Response) {
+    const newUser = await this.authService.registerUser(userRegistrationDto);
+    return this.jwtAuthService.signToken(res, { id: newUser.id, role: newUser.role });
   }
 
   @UseGuards(JwtGuard)

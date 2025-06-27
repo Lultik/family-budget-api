@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
 import { compare, genSalt, hash } from "bcrypt";
 import { FindAttributeOptions, WhereOptions } from "sequelize";
 import { User } from "../../user/models";
@@ -15,10 +14,7 @@ import {
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private userService: UserService,
-    private jwtService: JwtService,
-  ) {}
+  constructor(private userService: UserService) {}
 
   async registerUser(userRegistrationDto: UserRegistrationDto): Promise<User> {
     const { password, ...userData } = userRegistrationDto;

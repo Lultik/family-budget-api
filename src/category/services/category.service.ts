@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { CreateCategoryDto } from "../dto/create-category.dto";
-import { Category } from "../models/category.model";
+import { Category } from "../models";
 
 @Injectable()
 export class CategoryService {
